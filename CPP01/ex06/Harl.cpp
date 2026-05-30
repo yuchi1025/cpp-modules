@@ -6,18 +6,18 @@
 /*   By: yucchen <yucchen@student.42singapore.sg    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/27 09:53:22 by yucchen           #+#    #+#             */
-/*   Updated: 2026/05/29 16:51:40 by yucchen          ###   ########.fr       */
+/*   Updated: 2026/05/30 13:31:20 by yucchen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <iostream>
 #include "Harl.hpp"
 
-Harl::Harl()
+Harl::Harl( void )
 {
 }
 
-Harl::~Harl()
+Harl::~Harl( void )
 {
 }
 
@@ -50,13 +50,6 @@ void    Harl::complain( std::string level )
     levels[2] = "WARNING";
     levels[3] = "ERROR";
 
-    void (Harl::*functions[4])(void);
-
-    functions[0] = &Harl::debug;
-    functions[1] = &Harl::info;
-    functions[2] = &Harl::warning;
-    functions[3] = &Harl::error;
-
     int level_index = -1;
 
     for (int i = 0; i < 4; i++)
@@ -72,22 +65,22 @@ void    Harl::complain( std::string level )
     {
         case 0:
             std::cout << "[ DEBUG ]" << std::endl;
-            (this->*functions[0])();
+            debug();
             std::cout << std::endl;
 
         case 1:
             std::cout << "[ INFO ]" << std::endl;
-            (this->*functions[1])();
+            info();
             std::cout << std::endl;
 
         case 2:
             std::cout << "[ WARNING ]" << std::endl;
-            (this->*functions[2])();
+            warning();
             std::cout << std::endl;
 
         case 3:
             std::cout << "[ ERROR ]" << std::endl;
-            (this->*functions[3])();
+            error();
             std::cout << std::endl;
             break;
 

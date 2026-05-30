@@ -6,19 +6,21 @@
 /*   By: yucchen <yucchen@student.42singapore.sg    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/27 09:53:22 by yucchen           #+#    #+#             */
-/*   Updated: 2026/05/29 16:50:35 by yucchen          ###   ########.fr       */
+/*   Updated: 2026/05/30 13:34:49 by yucchen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <iostream>
 #include "Harl.hpp"
 
-Harl::Harl()
+Harl::Harl( void )
 {
+    std::cout << "Harl created" << std::endl;
 }
 
-Harl::~Harl()
+Harl::~Harl( void )
 {
+    std::cout << "Harl destroyed" << std::endl;
 }
 
 void    Harl::debug( void )
@@ -50,7 +52,7 @@ void    Harl::complain( std::string level )
     levels[2] = "WARNING";
     levels[3] = "ERROR";
 
-    void (Harl::*functions[4])(void);
+    void (Harl::*functions[4])();
 
     functions[0] = &Harl::debug;
     functions[1] = &Harl::info;

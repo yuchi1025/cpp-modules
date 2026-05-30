@@ -6,7 +6,7 @@
 /*   By: yucchen <yucchen@student.42singapore.sg    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/26 20:15:13 by yucchen           #+#    #+#             */
-/*   Updated: 2026/05/29 16:50:49 by yucchen          ###   ########.fr       */
+/*   Updated: 2026/05/30 13:35:16 by yucchen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,8 +18,8 @@
 class Harl
 {
 	public:
-		Harl();
-		~Harl();
+		Harl( void );
+		~Harl( void );
 
 		void	complain( std::string level );
 
