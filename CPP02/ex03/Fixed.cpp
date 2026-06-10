@@ -6,7 +6,7 @@
 /*   By: yucchen <yucchen@student.42singapore.sg    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/02 09:55:37 by yucchen           #+#    #+#             */
-/*   Updated: 2026/06/07 16:15:09 by yucchen          ###   ########.fr       */
+/*   Updated: 2026/06/10 10:17:39 by yucchen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,12 +20,14 @@ Fixed::Fixed( void ): _value( 0 )
     //std::cout << "Default constructor called" << std::endl;
 }
 
+// Copy constructor
 Fixed::Fixed( const Fixed& other )
 {
     //std::cout << "Copy constructor called" << std::endl;
     *this = other;
 }
 
+// A copy assignment operator overload
 Fixed& Fixed::operator=( const Fixed& other )
 {
     //std::cout << "Copy assignment operator called" << std::endl;
@@ -39,6 +41,7 @@ Fixed& Fixed::operator=( const Fixed& other )
     return *this;
 }
 
+// Destructor
 Fixed::~Fixed( void )
 {
     //std::cout << "Destructor called" << std::endl;
@@ -139,7 +142,7 @@ Fixed& Fixed::operator++()
 }
 
 // Post-increment a++
-// int parameter is just a dummy marker so C++ can distinghish a++ from ++a
+// int parameter is just a dummy marker so C++ can distinguish a++ from ++a
 Fixed Fixed::operator++(int)
 {
     //std::cout << "Post-increment operator called" << std::endl;
@@ -164,7 +167,7 @@ Fixed& Fixed::operator--()
 }
 
 // Post-decrement a--
-// int parameter is just a dummy marker so C++ can distinghish a-- from --a
+// int parameter is just a dummy marker so C++ can distinguish a-- from --a
 Fixed Fixed::operator--(int)
 {
     //std::cout << "Post-decrement operator called" << std::endl;
@@ -187,7 +190,7 @@ Fixed& Fixed::min( Fixed& a, Fixed& b )
     return a;
 }
 
-const Fixed& Fixed::min( const Fixed& a, const Fixed& b)
+const Fixed& Fixed::min( const Fixed& a, const Fixed& b )
 {
     //std::cout << "min with const objects called" << std::endl;
 
@@ -196,7 +199,7 @@ const Fixed& Fixed::min( const Fixed& a, const Fixed& b)
     return a;
 }
 
-Fixed& Fixed::max( Fixed& a, Fixed& b)
+Fixed& Fixed::max( Fixed& a, Fixed& b )
 {
     //std::cout << "max with normal objects called" << std::endl;
 
@@ -205,7 +208,7 @@ Fixed& Fixed::max( Fixed& a, Fixed& b)
     return b;
 }
 
-const Fixed& Fixed::max( const Fixed& a, const Fixed& b)
+const Fixed& Fixed::max( const Fixed& a, const Fixed& b )
 {
     //std::cout << "max with const objects called" << std::endl;
 
@@ -245,7 +248,7 @@ void Fixed::setRawBits( int const raw )
     this->_value = raw;
 }
 
-std::ostream& operator<<( std::ostream& o, Fixed const& i )
+std::ostream& operator<<( std::ostream& o, const Fixed& i )
 {
    o << i.toFloat();
    return o;

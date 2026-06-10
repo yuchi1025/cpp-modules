@@ -6,7 +6,7 @@
 /*   By: yucchen <yucchen@student.42singapore.sg    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/01 17:31:56 by yucchen           #+#    #+#             */
-/*   Updated: 2026/06/04 16:20:50 by yucchen          ###   ########.fr       */
+/*   Updated: 2026/06/10 10:01:12 by yucchen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,9 +53,9 @@ class Fixed
 
         // min/max
         static Fixed& min( Fixed& a, Fixed& b );
-        static const Fixed& min( const Fixed& a, const Fixed& b);
+        static const Fixed& min( const Fixed& a, const Fixed& b );
         static Fixed& max( Fixed& a, Fixed& b );
-        static const Fixed& max( const Fixed& a, const Fixed& b);
+        static const Fixed& max( const Fixed& a, const Fixed& b );
 
         Fixed( const int i );
         Fixed( const float f );
@@ -71,6 +71,6 @@ class Fixed
         static const int _fractionalBits = 8;
 };
 
-std::ostream& operator<<( std::ostream& o, Fixed const& i );
+std::ostream& operator<<( std::ostream& o, const Fixed& i );
 
 #endif

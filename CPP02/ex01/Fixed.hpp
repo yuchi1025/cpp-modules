@@ -6,7 +6,7 @@
 /*   By: yucchen <yucchen@student.42singapore.sg    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/01 17:31:56 by yucchen           #+#    #+#             */
-/*   Updated: 2026/06/03 11:24:53 by yucchen          ###   ########.fr       */
+/*   Updated: 2026/06/08 16:00:17 by yucchen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,8 +26,9 @@ class Fixed
         Fixed& operator=( const Fixed& other );
         // Destructor
         ~Fixed( void );
-
+        // A constructor that takes a constant integer as a parameter
         Fixed( const int i );
+        // A constructor that takes a constant floating-point number as a parameter
         Fixed( const float f );
 
         float toFloat( void ) const;
@@ -41,6 +42,6 @@ class Fixed
         static const int _fractionalBits = 8;
 };
 
-std::ostream& operator<<( std::ostream& o, Fixed const& i );
+std::ostream& operator<<( std::ostream& o, const Fixed& i );
 
 #endif

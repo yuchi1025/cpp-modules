@@ -6,19 +6,19 @@
 /*   By: yucchen <yucchen@student.42singapore.sg    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/06 17:03:42 by yucchen           #+#    #+#             */
-/*   Updated: 2026/06/07 16:15:43 by yucchen          ###   ########.fr       */
+/*   Updated: 2026/06/10 10:29:49 by yucchen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "Point.hpp"
 
 // AB * AP
-static Fixed sign( Point const& a, Point const& b, Point const& p)
+static Fixed sign( Point const& a, Point const& b, Point const& p )
 {
     return (b.getX() - a.getX()) * (p.getY() - a.getY()) - (b.getY() - a.getY()) * (p.getX() - a.getX());
 }
 
-bool bsp( Point const a, Point const b, Point const c, Point const point)
+bool bsp( Point const a, Point const b, Point const c, Point const point )
 {
     Fixed d1 = sign(a, b, point);
     Fixed d2 = sign(b, c, point);
@@ -33,4 +33,3 @@ bool bsp( Point const a, Point const b, Point const c, Point const point)
         return true; 
     return false;
 }
-

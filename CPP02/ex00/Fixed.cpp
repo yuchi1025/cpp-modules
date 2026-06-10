@@ -6,7 +6,7 @@
 /*   By: yucchen <yucchen@student.42singapore.sg    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/02 09:55:37 by yucchen           #+#    #+#             */
-/*   Updated: 2026/06/03 11:37:11 by yucchen          ###   ########.fr       */
+/*   Updated: 2026/06/08 14:32:22 by yucchen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,12 +19,14 @@ Fixed::Fixed( void ): _value( 0 )
     std::cout << "Default constructor called" << std::endl;
 }
 
+// A copy constructor
 Fixed::Fixed( const Fixed& other )
 {
     std::cout << "Copy constructor called" << std::endl;
     *this = other;
 }
 
+// A copy assignment operator overload
 Fixed& Fixed::operator=( const Fixed& other )
 {
     std::cout << "Copy assignment operator called" << std::endl;
@@ -38,6 +40,7 @@ Fixed& Fixed::operator=( const Fixed& other )
     return *this;
 }
 
+// A destructor
 Fixed::~Fixed( void )
 {
     std::cout << "Destructor called" << std::endl;
