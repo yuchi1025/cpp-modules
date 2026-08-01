@@ -6,11 +6,10 @@
 /*   By: yucchen <yucchen@student.42singapore.sg    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/07/25 18:03:49 by yucchen           #+#    #+#             */
-/*   Updated: 2026/07/28 13:01:39 by yucchen          ###   ########.fr       */
+/*   Updated: 2026/08/01 17:48:04 by yucchen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <cstdlib> // std::rand, std::srand
 #include "PresidentialPardonForm.hpp"
 #include "Bureaucrat.hpp"
 
