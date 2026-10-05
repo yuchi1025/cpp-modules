@@ -11,9 +11,8 @@
 /* ************************************************************************** */
 
 #include <fstream>  // std::ifstream
-#include <iostream>
-#include <sstream>
-#include <cctype>
+#include <iostream> 
+#include <sstream>  // std::istringstream
 #include "BitcoinExchange.hpp"
 
 BitcoinExchange::BitcoinExchange()
@@ -43,12 +42,11 @@ bool BitcoinExchange::loadDatabase(const std::string& filename)
     
     if (!data_file)
     {
-        std::cout << "File open failed!" << std::endl;
+        std::cerr << "File open failed!" << std::endl;
         return 0;
     }
 
     // read every line
-    // print every line
     std::string line;
     std::string::size_type comma_pos;
     std::string date;
@@ -57,7 +55,6 @@ bool BitcoinExchange::loadDatabase(const std::string& filename)
     
     // skip header: date,exchange_rate
     std::getline(data_file, line);
-    
     while (std::getline(data_file, line))
     {
         comma_pos = line.find(',');
@@ -151,6 +148,7 @@ float BitcoinExchange::getRate(const std::string& date) const
         throw NoDateException();
 
     --it;
+
     return it->second;
 }
 
@@ -160,7 +158,7 @@ void BitcoinExchange::processInput(const std::string& filename)
     
     if (!in_file)
     {
-        std::cout << "File open failed!" << std::endl;
+        std::cerr << "File open failed!" << std::endl;
         return ;
     }
 
@@ -171,13 +169,19 @@ void BitcoinExchange::processInput(const std::string& filename)
     float f_value;
     
     std::getline(in_file, line);
+    
+    if (line != "date | value")
+    {
+        std::cerr << "Error: invalid header" << std::endl;
+        return ;
+    }
     while (std::getline(in_file, line))
     {
         pipe_pos = line.find('|');
         if (pipe_pos == std::string::npos || pipe_pos == 0 || pipe_pos + 1 >= line.length() 
             || line[pipe_pos - 1] != ' ' || line[pipe_pos + 1] != ' ')
         {
-            std::cout << "Error: bad input => " << line << std::endl;
+            std::cerr << "Error: bad input => " << line << std::endl;
             continue ;
         }
 
@@ -185,7 +189,7 @@ void BitcoinExchange::processInput(const std::string& filename)
 
         if (!isValidDate(date))
         {
-            std::cout << "Error: bad input => " << date << std::endl;
+            std::cerr << "Error: bad input => " << date << std::endl;
             continue ;
         }
 
@@ -193,21 +197,21 @@ void BitcoinExchange::processInput(const std::string& filename)
 
         std::istringstream iss(value);
 
-        if (!(iss >> f_value) || !(iss.eof()))
+        if (!(iss >> f_value) || !iss.eof())
         {
-            std::cout << "Invalid value" << std::endl;
+            std::cerr << "Error: bad input => " << line << std::endl;
             continue ;
         }
 
         if (f_value < 0)
         {
-            std::cout << "Error: not a positive number." << std::endl;
+            std::cerr << "Error: not a positive number." << std::endl;
             continue ;
         }
 
         if (f_value > 1000)
         {
-            std::cout << "Error: too large a number." << std::endl;
+            std::cerr << "Error: too large a number." << std::endl;
             continue ;
         }
 
@@ -219,7 +223,7 @@ void BitcoinExchange::processInput(const std::string& filename)
         }
         catch (const std::exception& e)
         {
-            std::cout << e.what() << std::endl;
+            std::cerr << e.what() << std::endl;
         }
     }
 }
