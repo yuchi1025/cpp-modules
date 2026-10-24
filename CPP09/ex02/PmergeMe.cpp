@@ -6,14 +6,14 @@
 /*   By: yucchen <yucchen@student.42singapore.sg    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/09/17 17:32:36 by yucchen           #+#    #+#             */
-/*   Updated: 2026/09/30 16:34:32 by yucchen          ###   ########.fr       */
+/*   Updated: 2026/10/24 17:50:34 by yucchen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <sstream>
+#include <sstream>      // std::istringstream
 #include <iostream>
-#include <utility>
-#include <algorithm>
+#include <utility>      // std::pair
+#include <algorithm>    // std::find, std::lower_bound
 #include <climits>      // INT_MAX
 #include "PmergeMe.hpp"
 
@@ -32,6 +32,7 @@ PmergeMe& PmergeMe::operator=(const PmergeMe& other)
         this->_vector = other._vector;
         this->_deque = other._deque;
     }
+    
     return *this;
 }
 
@@ -91,7 +92,7 @@ std::size_t jacobsthal(std::size_t n)
     if (n == 1)
         return 1;
 
-    return (2 * jacobsthal(n - 2) + jacobsthal(n - 1));
+    return (jacobsthal(n - 1) + 2 * jacobsthal(n - 2));
 }
 
 std::vector<int> PmergeMe::fordJohnson(const std::vector<int>& nums)
@@ -124,12 +125,8 @@ std::vector<int> PmergeMe::fordJohnson(const std::vector<int>& nums)
     // Store Bigs
     std::vector<int> Bigs;
 
-    //std::cout << "=== pairs === " << std::endl;
     for (std::vector< std::pair<int, int> >::size_type i = 0; i < pairs.size(); ++i)
-    {
-        //std::cout << pairs[i].first << " " << pairs[i].second << std::endl;
         Bigs.push_back(pairs[i].second);
-    }
 
     // Recursively sort Bigs
     Bigs = fordJohnson(Bigs);
@@ -137,13 +134,10 @@ std::vector<int> PmergeMe::fordJohnson(const std::vector<int>& nums)
     // Build main chain (Put b1 inside first)
     std::vector<int> mainChain;
 
-    //std::cout << "=== mainChain ===" << std::endl;
-
     for (std::vector< std::pair<int, int> >::size_type i = 0; i < pairs.size(); ++i)
     {
         if (pairs[i].second == Bigs[0])
         {
-            //std::cout << "Bigs[0]: " << Bigs[0] << "; small pair: " << pairs[i].first << std::endl;
             mainChain.push_back(pairs[i].first);
             break ;
         }
@@ -156,7 +150,6 @@ std::vector<int> PmergeMe::fordJohnson(const std::vector<int>& nums)
     // Build pendings (b2, b3, ...)
     std::vector< std::pair<int, int> > pendings;
 
-    //std::cout << "=== Pending ===" << std::endl;
     std::vector<int>::iterator it;
     for (it = Bigs.begin() + 1; it != Bigs.end(); ++it)
     {    
@@ -170,22 +163,7 @@ std::vector<int> PmergeMe::fordJohnson(const std::vector<int>& nums)
         }
     }
 
-    /*
-    for (std::vector< std::pair<int, int> >::size_type i = 0; i < pendings.size(); ++i)
-        std::cout << pendings[i].first << " " << pendings[i].second << std::endl;
-    */
-
-    // Insert straggler
-    if (hasStraggler)
-    {
-        //std::cout << "Straggler: " << straggler << std::endl;
-
-        std::vector<int>::iterator pos = std::lower_bound(mainChain.begin(), mainChain.end(), straggler);
-        mainChain.insert(pos, straggler);
-    }
-
     // Get Jacobsthal insertion order
-    //std::cout << "=== jacobsthal order ===" << std::endl;
     std::vector<std::size_t> jacobsthalOrder;
     std::size_t pairCnt = pairs.size();
     std::size_t previous = 1;
@@ -210,12 +188,6 @@ std::vector<int> PmergeMe::fordJohnson(const std::vector<int>& nums)
         }
     }
 
-    /*
-    for (std::vector<std::size_t>::size_type i = 0; i < jacobsthalOrder.size(); ++i)
-        std::cout << jacobsthalOrder[i] << " ";
-    std::cout << std::endl;
-    */
-
     // Insert smalls
     for (std::vector<std::size_t>::size_type i = 0; i < jacobsthalOrder.size(); ++i)
     {
@@ -227,6 +199,13 @@ std::vector<int> PmergeMe::fordJohnson(const std::vector<int>& nums)
         mainChain.insert(insertPos, small);
     }
 
+    // Insert straggler
+    if (hasStraggler)
+    {
+        std::vector<int>::iterator pos = std::lower_bound(mainChain.begin(), mainChain.end(), straggler);
+        mainChain.insert(pos, straggler);
+    }
+    
     return mainChain;
 }
 
@@ -297,13 +276,6 @@ std::deque<int> PmergeMe::fordJohnson(const std::deque<int>& nums)
         }
     }
 
-    // Insert straggler
-    if (hasStraggler)
-    {
-        std::deque<int>::iterator pos = std::lower_bound(mainChain.begin(), mainChain.end(), straggler);
-        mainChain.insert(pos, straggler);
-    }
-
     // Get jacobsthal insertion order 
     std::deque<std::size_t> jacobsthalOrder;
     std::size_t pairCnt = pairs.size();
@@ -338,6 +310,13 @@ std::deque<int> PmergeMe::fordJohnson(const std::deque<int>& nums)
         std::deque<int>::iterator bigPos = std::find(mainChain.begin(), mainChain.end(), big);
         std::deque<int>::iterator insertPos = std::lower_bound(mainChain.begin(), bigPos, small);
         mainChain.insert(insertPos, small);
+    }
+
+    // Insert straggler
+    if (hasStraggler)
+    {
+        std::deque<int>::iterator pos = std::lower_bound(mainChain.begin(), mainChain.end(), straggler);
+        mainChain.insert(pos, straggler);
     }
 
     return mainChain;

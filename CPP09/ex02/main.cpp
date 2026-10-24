@@ -6,7 +6,7 @@
 /*   By: yucchen <yucchen@student.42singapore.sg    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/09/17 13:25:24 by yucchen           #+#    #+#             */
-/*   Updated: 2026/09/30 12:43:01 by yucchen          ###   ########.fr       */
+/*   Updated: 2026/10/15 12:59:02 by yucchen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ int main(int argc, char** argv)
 {
     if (argc == 1)
     {
-        std::cerr << "Must use a positive integer as an argument" << std::endl;
+        std::cerr << "Must be able to use a positive integer sequence as an argument" << std::endl;
         return 1;
     }
 
@@ -48,7 +48,11 @@ int main(int argc, char** argv)
     
     std::cout << "After:  ";
     for (std::vector<int>::size_type i = 0; i < sortedVector.size(); ++i)
-        std::cout << sortedVector[i] << " ";
+    {
+        std::cout << sortedVector[i];
+        if (i != sortedVector.size() - 1)
+            std::cout << " ";
+    }
     std::cout << std::endl;
     std::cout << "Time to process a range of " << argc - 1 << " elements with std::vector : " << vecTime << " us" << std::endl;
     std::cout << "Time to process a range of " << argc - 1 << " elements with std::deque  : " << dequeTime << " us" << std::endl;
